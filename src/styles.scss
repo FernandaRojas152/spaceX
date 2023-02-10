@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+/** global variables */
+$font-color: #FFFDFF;
+$background-color: #01020C;
+$background-color-secondary: #0B0B0B;
+
+/** mixin functions */
+@mixin flex($justify: flex-start, $align: flex-start, $direction: row, $wrap: wrap) {
+    align-items: $align;
+    display: flex;
+    justify-content: $justify;
+    flex-flow: $direction $wrap;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+    background: $background-color-secondary;
+}
