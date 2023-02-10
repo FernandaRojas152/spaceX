@@ -1,3 +1,10 @@
 <header>
-    <h3>Space X</h3>
+    <div *ngIf="info$ | async as info">
+        <p>
+            {{info.name}}
+        </p>
+        <p>
+            {{info.founder}}
+        </p>
+    </div>
 </header>
