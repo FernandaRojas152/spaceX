@@ -1,6 +1,29 @@
 @import"../../styles.scss";
 
-p{
-    color: $font-color;
+.info {
+    @include background(url("../../assets/img/background.jpg"));
+    height: 100vh;
+}
 
+h1 {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 8rem;
+}
+
+.rocket-img {
+    position: relative;
+    float: right;
+}
+
+
+.info-data {
+    &--text {
+        font-family: $font-title;
+        color: $font-color;
+    }
+}
+
+.navbar{
+    @include flex(space-between, center, row);
 }

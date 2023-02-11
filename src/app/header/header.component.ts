@@ -13,7 +13,6 @@ export class HeaderComponent implements OnInit{
 
   constructor(private launchesService: LaunchesService){
     this.info$= this.launchesService.getInfo();
-
   }
   ngOnInit(): void {
     

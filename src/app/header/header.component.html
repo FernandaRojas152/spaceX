@@ -1,10 +1,35 @@
-<header>
-    <div *ngIf="info$ | async as info">
-        <p>
+<header class="info">
+    <nav class="navbar">
+        <ul>
+            <li> <a href="/"> Home </a> </li>
+            <li> <a href="/"> About </a></li>
+            <li></li>
+        </ul>
+        <button type="button" class="show-data"> Explore </button>
+
+    </nav>
+    <div *ngIf="info$ | async as info" class="info-data info-data--text">
+        <h1>
             {{info.name}}
+        </h1>
+        <h3>
+            {{info.founder}}
+        </h3>
+        <p>
+            {{info.summary}}
+        </p>
+<!--         <p>
+            {{info.founded}}
         </p>
         <p>
-            {{info.founder}}
+            {{info.headquarters}}
         </p>
+        <p>
+            {{info.valuation}}
+        </p> -->
     </div>
+    <Picture>
+        <img src="../../assets/img/rocket.png" alt="rocket" class="rocket-img">
+    </Picture>
+    
 </header>

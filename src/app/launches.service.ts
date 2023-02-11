@@ -17,8 +17,11 @@ export class LaunchesService implements OnInit {
 
   }
 
+  /** application/json it's a good practice or needed here? */
+
   getInfo(): Observable<InfoSpaceX> {
     return this.http.get<InfoSpaceX>(this.infoURL).pipe(
+      retry(3),
       catchError(this.handleError<InfoSpaceX>("GetInfo")),
     );
   }
@@ -31,9 +34,9 @@ export class LaunchesService implements OnInit {
   private handleError<T>(operation = "operation", result?: T) {
     return (error: HttpErrorResponse): Observable<T> => {
       if (error.status == 0) {
-        console.log(error.message);
+        console.log("An error occurred:", error.message);
       } else {
-        console.log(error.error);
+        console.log(`Error status ${error.status}, and: `,error.error);
       }
 
       return of(result as T);

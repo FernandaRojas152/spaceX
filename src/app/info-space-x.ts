@@ -13,7 +13,6 @@ export interface InfoSpaceX {
     valuation: bigint,
     headquarters: InfoSpaceXHeadQuarter,
     summary: string,
-
 }
 
 export interface InfoSpaceXHeadQuarter {
