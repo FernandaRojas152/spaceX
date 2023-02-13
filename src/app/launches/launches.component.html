@@ -1,3 +1,7 @@
 <main>
+    <section class="items" *ngFor="let l of launches$ | async">
+        {{l.mission_name}}
+        <img src= {{l.links.mission_patch_small}} alt=""/>
+    </section>
     <h1>SPACE OF THE ITEMS</h1>
 </main>

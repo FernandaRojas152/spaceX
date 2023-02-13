@@ -15,7 +15,6 @@ export class HeaderComponent implements OnInit{
     this.info$= this.launchesService.getInfo();
   }
   ngOnInit(): void {
-    
   }
 
 }

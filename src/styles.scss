@@ -2,11 +2,18 @@
 $font-color: #FFFDFF;
 $background-color: #01020C;
 $background-color-secondary: #0B0B0B;
+
 @font-face {
     font-family: 'Universo Black';
     src: url(./assets/font/UniversoBlack.ttf);
 }
 $font-title: 'Universo Black', sans-serif;
+
+@font-face {
+    font-family: 'Hiruko Pro';
+    src: url(./assets/font/HirukoLight.otf);
+}
+$principal-font: 'Hiruko Pro', sans-serif;
 
 /** mixin functions */
 @mixin flex($justify: flex-start, $align: flex-start, $direction: row, $wrap: wrap) {

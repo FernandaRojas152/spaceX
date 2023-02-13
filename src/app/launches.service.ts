@@ -9,7 +9,7 @@ import { InfoSpaceX } from './info-space-x';
 })
 export class LaunchesService implements OnInit {
   private infoURL = "https://api.spacexdata.com/v3/info";
-  private launchesURL = "https://api.spacexdata.com/v3/launches";
+  private launchesURL = "https://api.spacexdata.com/v3/launches/";
 
   constructor(private http: HttpClient) { };
 
@@ -28,7 +28,14 @@ export class LaunchesService implements OnInit {
 
   getLaunches() {
     //change to type observable later.
-    this.http.get(this.launchesURL);
+    return this.http.get(this.launchesURL).pipe(
+      retry(3),
+      catchError(this.handleError<any>("GetLaunches")),
+    );
+  }
+
+  getLaunch(id: number){
+    return this.http.get(`$(this.launchesURL)${id}`);
   }
 
   private handleError<T>(operation = "operation", result?: T) {
