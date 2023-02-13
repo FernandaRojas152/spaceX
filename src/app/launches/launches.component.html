@@ -1,7 +1,14 @@
-<main>
-    <section class="items" *ngFor="let l of launches$ | async">
-        {{l.mission_name}}
-        <img src= {{l.links.mission_patch_small}} alt=""/>
+<main class="container">
+    <section class="items" >
+        <ng-container *ngFor="let l of launches$ | async">
+            <div class="card">
+                <img src={{l.links.mission_patch_small}} alt="mission image" class="card__img"/>
+                <div class="card__card-content">
+                    <h4>{{l.mission_name}}</h4>
+                    <p>{{l.launch_year}}</p>
+                    <p>{{l.rocket.rocket_name}}</p>
+                </div>
+            </div>
+        </ng-container>  
     </section>
-    <h1>SPACE OF THE ITEMS</h1>
 </main>

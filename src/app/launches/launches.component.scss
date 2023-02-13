@@ -1,10 +1,29 @@
 @import"../../styles.scss";
 
-h1{
-    color: $font-color;
+.container{
+    max-width: 100rem;
+    margin-inline: auto;
+    padding-inline: 2rem;
 }
 
 .items{
     display: grid;
-    color: white;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    //color: $font-color;
+}
+
+.card{
+    font-family: $principal-font;
+    border: 1px solid white;
+    &__img{
+        width: 100%; //helps the images to maintain themselves on a responsive layout
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        cursor: pointer;
+    }
+    &__card-content{
+        background: white;
+        align-self: end;   
+    }
 }

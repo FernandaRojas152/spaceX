@@ -1,7 +1,7 @@
 /** global variables */
 $font-color: #FFFDFF;
 $background-color: #01020C;
-$background-color-secondary: #0B0B0B;
+$background-color-secondary: #1E1F22;
 
 @font-face {
     font-family: 'Universo Black';
@@ -23,7 +23,7 @@ $principal-font: 'Hiruko Pro', sans-serif;
     flex-flow: $direction $wrap;
 }
 
-@mixin background($url-image,$size: cover, $repeat: no-repeat, $position: center){
+@mixin background($url-image, $size: cover, $repeat: no-repeat, $position: center){
     background-image: $url-image;
     background-size: $size;
     background-repeat: $repeat;
