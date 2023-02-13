@@ -27,7 +27,6 @@ export class LaunchesService implements OnInit {
   }
 
   getLaunches() {
-    //change to type observable later.
     return this.http.get(this.launchesURL).pipe(
       retry(3),
       catchError(this.handleError<any>("GetLaunches")),

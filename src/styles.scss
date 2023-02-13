@@ -1,6 +1,6 @@
 /** global variables */
 $font-color: #FFFDFF;
-$background-color: #01020C;
+$background-color: #171818;
 $background-color-secondary: #1E1F22;
 
 @font-face {
@@ -14,6 +14,13 @@ $font-title: 'Universo Black', sans-serif;
     src: url(./assets/font/HirukoLight.otf);
 }
 $principal-font: 'Hiruko Pro', sans-serif;
+
+@font-face {
+    font-family: 'Loew';
+    src: url(./assets/font/Loew.otf);
+}
+
+$secondary-font: 'Loew', sans-serif;
 
 /** mixin functions */
 @mixin flex($justify: flex-start, $align: flex-start, $direction: row, $wrap: wrap) {
@@ -40,5 +47,5 @@ $principal-font: 'Hiruko Pro', sans-serif;
 }
 
 html{
-    background: $background-color-secondary;
+    background: $background-color;
 }

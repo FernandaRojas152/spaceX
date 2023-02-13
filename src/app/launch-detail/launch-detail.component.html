@@ -1,1 +1,7 @@
-<p>launch-detail works!</p>
+<h1>
+    Goes here
+</h1>
+<div *ngIf="launch$ | async as launch">
+    <h1>{{launch.mission_name}} </h1>
+
+</div>

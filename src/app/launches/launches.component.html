@@ -2,11 +2,14 @@
     <section class="items" >
         <ng-container *ngFor="let l of launches$ | async">
             <div class="card">
-                <img src={{l.links.mission_patch_small}} alt="mission image" class="card__img"/>
+                <a routerLink="launches/{{l.flight_number}}">
+                    <img src={{l.links.mission_patch_small}} alt="mission image" class="card__img"/>
+                </a>
+                
                 <div class="card__card-content">
-                    <h4>{{l.mission_name}}</h4>
-                    <p>{{l.launch_year}}</p>
-                    <p>{{l.rocket.rocket_name}}</p>
+                    <h4 class="card__mission-name">{{l.mission_name}}</h4>
+                    <p class="card__launch-year">{{l.launch_year}}</p>
+                    <p class="card__rocket-name">{{l.rocket.rocket_name}}</p>
                 </div>
             </div>
         </ng-container>  
