@@ -5,7 +5,10 @@ import { HeaderComponent } from './header/header.component';
 import { LaunchesComponent } from './launches/launches.component';
 
 const routes: Routes = [
-  {path: 'launches/:id', component: LaunchDetailComponent}
+  {path:'', redirectTo:'/home', pathMatch:'full'},
+  {path: 'home', component: HeaderComponent},
+  {path: 'launches', component: LaunchesComponent},
+  {path: 'detail/:id', component: LaunchDetailComponent},
 ];
 
 @NgModule({
