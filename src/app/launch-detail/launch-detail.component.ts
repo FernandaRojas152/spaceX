@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Location} from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { LaunchesService } from '../launches.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { LaunchSpaceX } from '../launch-space-x';
 
 @Component({
@@ -24,6 +24,12 @@ export class LaunchDetailComponent implements OnInit{
   getLaunch():void{
     const id= +this.route.snapshot.paramMap.get('id')!;
     this.launch$= this.launchesService.getLaunch(id);
+  }
+
+  favoriteLaunch$ = new Subject();
+
+  addFavorite(){
+    console.log("llegue")
   }
 
 

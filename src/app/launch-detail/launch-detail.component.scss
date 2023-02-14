@@ -1,4 +1,41 @@
 @import"../../styles.scss";
-*{
+
+.container {
+    @include flex(space-around, center);
     color: $font-color;
+}
+
+.detail-view {
+    margin: 2rem;
+    max-width: 42%;
+    &__image {
+        width: 100%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
+}
+
+.detail-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-family: $principal-font;
+    font-size: 28px;
+
+    &__title {
+        font-size: 90px;
+        font-family: $secondary-font;
+    }
+}
+
+$divider: #DB5461;
+hr{
+    border: 0;
+    height: 2px;
+    width: 30%;
+    position: relative;
+    
+    &.divider{
+      background: $divider;
+    }
 }

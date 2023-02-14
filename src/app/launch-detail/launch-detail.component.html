@@ -1,11 +1,18 @@
-<div *ngIf="launch$ | async as launch">
-    <img src={{launch.links.mission_patch}} alt="">
-    <h1>{{launch.mission_name}} </h1>
-    <h2> {{launch.launch_year}}</h2>
-    <p> {{launch.rocket.rocket_name }} </p>
-    <p> {{launch.launch_site.site_name}}</p>
-    <p>{{launch.details}}</p>
-    <p>{{launch.launch_success}}</p>
-    <p>{{launch.flickr_images}}</p> <!-- Look out on later -->
+<div *ngIf="launch$ | async as launch" class="container">
+    <section class="detail-view">
+        <img class="detail-view__image" src={{launch.links.mission_patch}} alt="">
+    </section>
+    <aside class="detail-content">
+        <hr class="divider">
+        <h1 class="detail-content__title">{{launch.mission_name}} </h1>
+        <h2> {{launch.launch_year}}</h2>
+        <p> {{launch.rocket.rocket_name }} </p>
+        <p> {{launch.launch_site.site_name}}</p>
+        <p>{{launch.details}}</p>
+        <button type="button" (click)="addFavorite()"> Add to favorites </button>
+        <p>{{launch.launch_success}}</p>
+        <p>{{launch.flickr_images}}</p> <!-- Look out on later -->
+
+    </aside>
 
 </div>
