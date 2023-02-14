@@ -1,7 +1,11 @@
-<h1>
-    Goes here
-</h1>
 <div *ngIf="launch$ | async as launch">
+    <img src={{launch.links.mission_patch}} alt="">
     <h1>{{launch.mission_name}} </h1>
+    <h2> {{launch.launch_year}}</h2>
+    <p> {{launch.rocket.rocket_name }} </p>
+    <p> {{launch.launch_site.site_name}}</p>
+    <p>{{launch.details}}</p>
+    <p>{{launch.launch_success}}</p>
+    <p>{{launch.flickr_images}}</p> <!-- Look out on later -->
 
 </div>

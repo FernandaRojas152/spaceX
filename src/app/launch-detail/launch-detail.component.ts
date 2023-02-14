@@ -3,6 +3,7 @@ import {Location} from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { LaunchesService } from '../launches.service';
 import { Observable } from 'rxjs';
+import { LaunchSpaceX } from '../launch-space-x';
 
 @Component({
   selector: 'app-launch-detail',

@@ -3,6 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 import { InfoSpaceX } from './info-space-x';
+import { LaunchSpaceX } from './launch-space-x';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,7 @@ export class LaunchesService implements OnInit {
   constructor(private http: HttpClient) { };
 
   ngOnInit(): void {
-
   }
-
-  /** application/json it's a good practice or needed here? */
 
   getInfo(): Observable<InfoSpaceX> {
     return this.http.get<InfoSpaceX>(this.infoURL).pipe(
@@ -34,7 +32,10 @@ export class LaunchesService implements OnInit {
   }
 
   getLaunch(id: number){
-    return this.http.get(`$(this.launchesURL)${id}`);
+    return this.http.get(`https://api.spacexdata.com/v3/launches/${id}`).pipe(
+      retry(3),
+      catchError(this.handleError<any>("getLaunch")),
+    );
   }
 
   private handleError<T>(operation = "operation", result?: T) {
@@ -42,7 +43,7 @@ export class LaunchesService implements OnInit {
       if (error.status == 0) {
         console.log("An error occurred:", error.message);
       } else {
-        console.log(`Error status ${error.status}, and: `,error.error);
+        console.log(`Error status ${error.status}, and: `, error.error);
       }
 
       return of(result as T);

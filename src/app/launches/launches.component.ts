@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LaunchesService } from '../launches.service';
 import { Observable } from 'rxjs';
+import { LaunchSpaceX } from '../launch-space-x';
 
 @Component({
   selector: 'app-launches',
