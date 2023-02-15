@@ -44,8 +44,21 @@ $secondary-font: 'Loew', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: content-box;
+    color: $font-color;
 }
 
 html{
     background: $background-color;
+}
+
+p{
+    font-family: $principal-font;
+    font-size: 22px;
+}
+
+button{
+    font-family: $principal-font;
+    font-size: 18px;
+    cursor: pointer;
+    border: 0;
 }

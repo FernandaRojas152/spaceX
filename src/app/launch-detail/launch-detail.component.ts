@@ -24,27 +24,11 @@ export class LaunchDetailComponent implements OnInit {
 
   getLaunch(): void {
     const id = +this.route.snapshot.paramMap.get('id')!;
-    this.id= id;
-    this.launch$ = this.launchesService.getLaunch(id).pipe(
-      /*       map(launch=> {
-              launch.isFavorite= false;
-              return launch;
-            }), */
-    );
+    this.id = id;
+    this.launch$ = this.launchesService.getLaunch(id);
   }
-
-  /*  favoriteLaunch$: Observable<any> | undefined; */
 
   addFavorite() {
     this.launchesService.addFavorite(this.id);
-    /*     this.favoriteLaunch$= this.favoriteLaunchSubject$.pipe(
-    
-    
-        ) */
-
   }
-
-/*   toggleFavorite(launch: LaunchSpaceX) {
-    this.favoriteLaunchSubject$.next(launch);
-  } */
 }

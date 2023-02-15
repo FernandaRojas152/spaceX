@@ -10,14 +10,11 @@
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    color: $font-color;
 }
 
 .card{
     margin: 0.5rem;
     padding: 0.6rem;
-    font-family: $principal-font;
-    font-size: 22px;
     background-color: $background-color-secondary;
     border-radius: 15px;
 
@@ -28,13 +25,13 @@
         cursor: pointer;
     }
     &__mission-name{
+        font-size: 22px;
         font-family: $secondary-font;
         text-transform: uppercase;
         margin-top: 10px;
         text-align: center;
     }
     &__rocket-name{
-        /* color: #858AE3; */
         opacity: 0.75;
     }
 }

@@ -1,6 +1,6 @@
 @import"../../styles.scss";
 
-.container {
+.container{
     @include flex(space-around, center);
     color: $font-color;
 }

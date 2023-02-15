@@ -1,5 +1,5 @@
 <header class="info">
-<!--     <nav class="navbar">
+    <!--     <nav class="navbar">
         <ul>
             <li> <a href="/"> Home </a> </li>
             <li> <a href="/"> About </a></li>
@@ -7,26 +7,17 @@
         </ul>
         <button type="button" class="show-data"> <span class="text">Explore</span> </button>
     </nav> -->
-    <div *ngIf="info$ | async as info" class="info-data info-data--text">
-        <div class="text-box">
-            <h1>
-                {{info.name}}
-            </h1>
-            <h3>
-                {{info.founder}}
-            </h3>
-            <p>
-                {{info.summary}}
-            </p>
-            <a routerLink="/launches">
+    <div *ngIf="info$ | async as info" class="info-data">
+        <h1>{{info.name}}</h1>
+        <h3>{{info.founder}}</h3>
+        <p> {{info.summary}} </p>
+        <a routerLink="/launches">
             <button>
                 <span class="text">Explore</span>
             </button>
-            </a>
-        </div>
+        </a>
     </div>
     <Picture>
         <img src="../../assets/img/rocket.png" alt="rocket" class="rocket-img slide-top">
     </Picture>
-
 </header>
