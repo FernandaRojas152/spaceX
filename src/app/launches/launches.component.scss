@@ -1,0 +1,40 @@
+@import"../../styles.scss";
+
+.container{
+    max-width: 100rem;
+    margin-inline: auto;
+    padding-inline: 2rem;
+}
+
+.items{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    color: $font-color;
+}
+
+.card{
+    margin: 0.5rem;
+    padding: 0.6rem;
+    font-family: $principal-font;
+    font-size: 22px;
+    background-color: $background-color-secondary;
+    border-radius: 15px;
+
+    &__img{
+        width: 100%; //helps the images to maintain themselves on a responsive layout
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        cursor: pointer;
+    }
+    &__mission-name{
+        font-family: $secondary-font;
+        text-transform: uppercase;
+        margin-top: 10px;
+        text-align: center;
+    }
+    &__rocket-name{
+        /* color: #858AE3; */
+        opacity: 0.75;
+    }
+}

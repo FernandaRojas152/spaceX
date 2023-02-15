@@ -1,1 +1,51 @@
-/* You can add global styles to this file, and also import other style files */
+/** global variables */
+$font-color: #FFFDFF;
+$background-color: #171818;
+$background-color-secondary: #1E1F22;
+
+@font-face {
+    font-family: 'Universo Black';
+    src: url(./assets/font/UniversoBlack.ttf);
+}
+$font-title: 'Universo Black', sans-serif;
+
+@font-face {
+    font-family: 'Hiruko Pro';
+    src: url(./assets/font/HirukoLight.otf);
+}
+$principal-font: 'Hiruko Pro', sans-serif;
+
+@font-face {
+    font-family: 'Loew';
+    src: url(./assets/font/Loew.otf);
+}
+
+$secondary-font: 'Loew', sans-serif;
+
+/** mixin functions */
+@mixin flex($justify: flex-start, $align: flex-start, $direction: row, $wrap: wrap) {
+    align-items: $align;
+    display: flex;
+    justify-content: $justify;
+    flex-flow: $direction $wrap;
+}
+
+@mixin background($url-image, $size: cover, $repeat: no-repeat, $position: center){
+    background-image: $url-image;
+    background-size: $size;
+    background-repeat: $repeat;
+    background-position: $position;
+}
+
+
+/** General styles */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+}
+
+html{
+    background: $background-color;
+}
