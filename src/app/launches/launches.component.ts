@@ -9,17 +9,18 @@ import { LaunchSpaceX } from '../launch-space-x';
   styleUrls: ['./launches.component.scss']
 })
 export class LaunchesComponent implements OnInit{
-  launches$: Observable<any>= new Observable;
+  launches$: Observable<LaunchSpaceX[]>;
 
   constructor(private launchesService: LaunchesService) {
+    
   }
 
   ngOnInit(): void {
-    this.getLaunches();
-  }
-
-
-  getLaunches(){
     this.launches$= this.launchesService.getLaunches();
   }
+
+  isFavorite(id: number){
+    return this.launchesService.isFavorite(id);
+  }
+
 } 

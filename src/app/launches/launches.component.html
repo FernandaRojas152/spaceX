@@ -10,6 +10,7 @@
                     <h4 class="card__mission-name">{{l.mission_name}}</h4>
                     <p class="card__launch-year">{{l.launch_year}}</p>
                     <p class="card__rocket-name">{{l.rocket.rocket_name}}</p>
+                    <span *ngIf="isFavorite(l.flight_number)"> Mark as Favorite </span>
                 </div>
             </div>
         </ng-container>  
