@@ -12,9 +12,14 @@ export class HeaderComponent implements OnInit{
   info$: Observable<InfoSpaceX>;
 
   constructor(private launchesService: LaunchesService){
-    this.info$= this.launchesService.getInfo();
+    
   }
   ngOnInit(): void {
+    this.getInfo();
+  }
+
+  getInfo(){
+    this.info$= this.launchesService.getInfo();
   }
 
 }

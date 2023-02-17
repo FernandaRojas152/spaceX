@@ -43,7 +43,7 @@ export class LaunchesService implements OnInit {
 
 
   getLaunch(id: number){
-    return this.http.get(`https://api.spacexdata.com/v3/launches/${id}`).pipe(
+    return this.http.get<LaunchSpaceX>(`https://api.spacexdata.com/v3/launches/${id}`).pipe(
       retry(3),
       catchError(this.handleError<any>("getLaunch")),
     );

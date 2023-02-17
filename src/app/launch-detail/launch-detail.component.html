@@ -9,7 +9,7 @@
         <p> {{launch.rocket.rocket_name }} </p>
         <p> {{launch.launch_site.site_name}}    </p>
         <p> {{launch.details}}  </p>
-        <button type="button" (click)="addFavorite()" class="btn"> Add to favorites </button>
+        <button type="button" (click)="addFavorite()" class="btn"> {{favorite}} </button>
     </aside>
     <div style="overflow: hidden;">
         <svg
