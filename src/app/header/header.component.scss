@@ -1,6 +1,7 @@
 @import"../../styles.scss";
 
 .info {
+    @include flex();
     @include background(url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/demo-bg.jpg"));
     height: 100vh;
     overflow: hidden;
@@ -63,11 +64,15 @@ button:active {
 }
 
 //Image styles and animation
+.img-container {
+    position: relative;
+    overflow: hidden;
+}
 
 .rocket-img {
-    position: absolute;
+    position: fixed;
     bottom: -30px;
-    right: 10px;
+    right: 80px;
     height: 90%;
 }
 
