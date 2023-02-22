@@ -1,7 +1,7 @@
 /** global variables */
 $font-color: #FFFDFF;
 $background-color: #171818;
-$background-color-secondary: #1E1F22;
+$background-color-secondary: #1F1922;
 
 @font-face {
     font-family: 'Universo Black';
@@ -44,8 +44,26 @@ $secondary-font: 'Loew', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: content-box;
+    color: $font-color;
 }
 
 html{
-    background: $background-color;
+    background-color: $background-color-secondary;
+}
+
+p{
+    font-family: $principal-font;
+    font-size: 22px;
+}
+
+button{
+    font-family: $principal-font;
+    font-size: 18px;
+    cursor: pointer;
+    border: 0;
+}
+
+h4{
+    font-family: $secondary-font;
+    font-size: 22px;
 }

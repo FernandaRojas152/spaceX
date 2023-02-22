@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, retry, map } from 'rxjs/operators';
 import { InfoSpaceX } from './info-space-x';
@@ -11,10 +12,19 @@ import { LaunchSpaceX } from './launch-space-x';
 export class LaunchesService implements OnInit {
   private infoURL = "https://api.spacexdata.com/v3/info";
   private launchesURL = "https://api.spacexdata.com/v3/launches/";
+  private favorite: number;
 
   constructor(private http: HttpClient) { };
 
   ngOnInit(): void {
+  }
+
+  addFavorite(id: number){
+    this.favorite= id;
+  }
+
+  isFavorite(id: number){
+    return this.favorite=== id;
   }
 
   getInfo(): Observable<InfoSpaceX> {
@@ -25,14 +35,15 @@ export class LaunchesService implements OnInit {
   }
 
   getLaunches() {
-    return this.http.get(this.launchesURL).pipe(
+    return this.http.get<LaunchSpaceX[]>(this.launchesURL).pipe(
       retry(3),
       catchError(this.handleError<any>("GetLaunches")),
     );
   }
 
+
   getLaunch(id: number){
-    return this.http.get(`https://api.spacexdata.com/v3/launches/${id}`).pipe(
+    return this.http.get<LaunchSpaceX>(`https://api.spacexdata.com/v3/launches/${id}`).pipe(
       retry(3),
       catchError(this.handleError<any>("getLaunch")),
     );

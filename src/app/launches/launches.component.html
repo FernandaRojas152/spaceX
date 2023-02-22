@@ -1,17 +1,32 @@
 <main class="container">
-    <section class="items" >
-        <ng-container *ngFor="let l of launches$ | async">
-            <div class="card">
+    <section class="items">
+        <div *ngFor="let l of launches$ | async" class="card">
+            <article *ngIf="isFavorite(l.flight_number)" class="favorite-launch">
+                <h4> Favorite Launch</h4>
                 <a routerLink="/detail/{{l.flight_number}}">
-                    <img src={{l.links.mission_patch_small}} alt="mission image" class="card__img"/>
+                <img src={{l.links.mission_patch_small}} alt="mission image" class="favorite-launch__img favorite-img" />
                 </a>
-                
+                <h4 class="card__mission-name">{{l.mission_name}}</h4>
+                <hr>
+            </article>
+            <article class="launches-list">
+                <a routerLink="/detail/{{l.flight_number}}">
+                    <img src={{l.links.mission_patch_small}} alt="mission image" class="card__img" />
+                </a>
+                <input type="checkbox" id="star">
+<!--                 <label for="star" class="star">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
+                        </path>
+                    </svg>
+                </label> -->
                 <div class="card__card-content">
                     <h4 class="card__mission-name">{{l.mission_name}}</h4>
                     <p class="card__launch-year">{{l.launch_year}}</p>
                     <p class="card__rocket-name">{{l.rocket.rocket_name}}</p>
                 </div>
-            </div>
-        </ng-container>  
+            </article>
+        </div>
     </section>
 </main>
