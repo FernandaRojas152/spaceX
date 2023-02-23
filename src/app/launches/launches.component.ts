@@ -12,7 +12,6 @@ export class LaunchesComponent implements OnInit{
   launches$: Observable<LaunchSpaceX[]>;
 
   constructor(private launchesService: LaunchesService) {
-    
   }
 
   ngOnInit(): void {
@@ -21,6 +20,12 @@ export class LaunchesComponent implements OnInit{
 
   isFavorite(id: number){
     return this.launchesService.isFavorite(id);
+  }
+
+  addFavorite(l: LaunchSpaceX){
+    console.log("Llegue");
+    this.launchesService.addFavorite(l.flight_number);
+
   }
 
 } 

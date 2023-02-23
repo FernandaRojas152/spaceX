@@ -34,9 +34,4 @@ export class LaunchDetailComponent implements OnInit, AfterContentChecked {
     this.id = id;
     this.launch$ = this.launchesService.getLaunch(id);
   }
-
-  addFavorite() {
-    this.favorite="Added to favorites";
-    this.launchesService.addFavorite(this.id);
-  }
 }

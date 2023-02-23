@@ -3,24 +3,15 @@
 .container {
   max-width: 100rem;
   margin-inline: auto;
+  margin-top: 50px;
   padding-inline: 2rem;
   position: relative;
-}
-
-img{
-  width: 100%; //helps the images to maintain themselves on a responsive layout
-  aspect-ratio: 1/1;
-  object-fit: cover;
-  cursor: pointer;
-}
-
-.items {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 }
 
-.favorite-launch{
+.favorite-launch {
   width: 500px;
   margin-inline: 0.5rem;
   grid-column: 1 / -1;
@@ -28,29 +19,59 @@ img{
   z-index: 1;
 }
 
-.favorite-img{
+.favorite-img {
   max-width: 60%;
 }
 
-.card {
-  display: contents;
-  margin: 0.5rem;
-  padding: 0.6rem;
-  background-color: $background-color-secondary;
-  border-radius: 15px;
+.launch-img {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  width: 100%; //helps the images to maintain themselves on a responsive layout
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  cursor: pointer;
+}
 
-  &__mission-name {
-    text-transform: uppercase;
-    margin-top: 10px;
-    text-align: center;
+.launches-list {
+  display: flex;
+  margin: 0.5rem;
+  padding: 0.8rem;
+  flex-direction: column;
+/*   backdrop-filter: blur(7px);
+  background-color: rgba(152, 149, 149, 0.2);
+  border: 0;
+  border-radius: 25px;
+  box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2); */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border:1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  cursor: pointer;
+
+  &__title {
+    @include flex(space-between);
   }
+
+  &__description {
+    @include flex(space-between)
+  }
+}
+
+.launches-list-description {
+  width: 100%;
+  margin-top: 15px;
+  @include flex(space-between);
 
   &__rocket-name {
     opacity: 0.75;
   }
+
 }
 
-input[type="checkbox"] {
+//FAVORITE STAR STYLES
+input[type="radio"] {
   display: none;
 }
 
@@ -62,7 +83,7 @@ label svg {
   stroke-width: 2px;
 }
 
-input[type="checkbox"]:checked+label svg {
+input[type="radio"]:checked+label svg {
   fill: #FFC107;
   animation: pop_42 0.5s ease-out;
 }
