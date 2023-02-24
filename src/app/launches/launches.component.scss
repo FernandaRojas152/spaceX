@@ -37,11 +37,6 @@
   margin: 0.5rem;
   padding: 0.8rem;
   flex-direction: column;
-/*   backdrop-filter: blur(7px);
-  background-color: rgba(152, 149, 149, 0.2);
-  border: 0;
-  border-radius: 25px;
-  box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2); */
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -67,7 +62,10 @@
   &__rocket-name {
     opacity: 0.75;
   }
+}
 
+.is-favorite{
+  fill: #FFC107; 
 }
 
 //FAVORITE STAR STYLES

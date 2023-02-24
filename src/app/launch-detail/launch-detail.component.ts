@@ -1,32 +1,26 @@
-import { Component, OnInit, AfterContentChecked } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { LaunchesService } from '../launches.service';
 import { Observable, pipe, map } from 'rxjs';
 import { LaunchSpaceX } from '../launch-space-x';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-launch-detail',
   templateUrl: './launch-detail.component.html',
   styleUrls: ['./launch-detail.component.scss']
 })
-export class LaunchDetailComponent implements OnInit, AfterContentChecked {
-
+export class LaunchDetailComponent implements OnInit{
   launch$: Observable<LaunchSpaceX>;
   id: number;
-  favorite: string="Add to Favorites";
+  form: FormGroup;
 
   constructor(private route: ActivatedRoute, private launchesService: LaunchesService, private location: Location) {
   }
 
   ngOnInit(): void {
     this.getLaunch();
-  }
-
-  ngAfterContentChecked(): void {
-    //Called after every check of the component's or directive's content.
-    //Add 'implements AfterContentChecked' to the class.
-    
   }
 
   getLaunch(): void {

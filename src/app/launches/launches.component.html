@@ -1,14 +1,16 @@
 <section class="container">
-    <ng-container *ngFor="let l of launches$ | async">
+    <ng-container *ngFor="let launch of launches$ | async">
         <article class="launches-list">
-            <a routerLink="/detail/{{l.flight_number}}">
-                <img src={{l.links.mission_patch_small}}
+            <a routerLink="/detail/{{launch.flight_number}}">
+                <img src={{launch.links.mission_patch_small}}
                     onerror="this.onerror= null; this.src='../../assets/img/default-img.png'" alt="mission image"
                     class="launch-img" />
             </a>
             <div class="launches-list__title">
-                <h4>{{l.mission_name}}</h4>
-                <input type="radio" id="star" (change)="addFavorite(l)">
+                <h4>{{launch.mission_name}}</h4>
+                {{isFavoriteLaunch}}
+                <input type="radio" [class.is-favorite]="isFavoriteLaunch" name="favorite" (change)="addFavorite(launch)">
+                <!--                 <input type="radio" id="star" (change)="addFavorite(l)"> -->
                 <label for="star" class="star">
                     <svg viewBox="0 0 24 24">
                         <path
@@ -18,8 +20,8 @@
                 </label>
             </div>
             <div class="launches-list-description">
-                <p class="launches-list-description__launch-year">{{l.launch_year}}</p>
-                <p class="launches-list-description__rocket-name">{{l.rocket.rocket_name}}</p>
+                <p class="launches-list-description__launch-year">{{launch.launch_year}}</p>
+                <p class="launches-list-description__rocket-name">{{launch.rocket.rocket_name}}</p>
             </div>
         </article>
     </ng-container>

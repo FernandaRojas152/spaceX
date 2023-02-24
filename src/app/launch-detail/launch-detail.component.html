@@ -5,6 +5,7 @@
     <aside class="detail-content">
         <hr class="divider">
         <h1 class="detail-content__title">{{launch.mission_name}} </h1>
+        <button class="btn">Edit</button>
         <h2> {{launch.launch_year}} </h2>
         <p> {{launch.rocket.rocket_name }} </p>
         <p> {{launch.launch_site.site_name}}    </p>
@@ -21,3 +22,23 @@
         </svg>
     </div>
 </div>
+
+<!-- <div>
+  <form [formGroup]="form">
+    <label for="name">
+        <input formControlName="name">
+    </label>
+    <label for="date">
+        <input formControlName="date">
+    </label>
+    <label for="rocket">
+        <input formControlName="rocket">
+    </label>
+    <label for="site">
+        <input formControlName="site">
+    </label>
+    <label for="description">
+        <input formControlName="description">
+    </label>
+</form>
+</div> -->
