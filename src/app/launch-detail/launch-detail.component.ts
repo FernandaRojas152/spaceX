@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { LaunchesService } from '../launches.service';
-import { Observable, pipe, map } from 'rxjs';
+import { Observable, pipe, map, tap } from 'rxjs';
 import { LaunchSpaceX } from '../launch-space-x';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NoSpecialCharactersValidator } from '../customValidators/special-characters-validator.directive';
+import { ValidCharacterValidator } from '../customValidators/character-validator.directive';
+import { NoDataRepeatedValidator } from '../customValidators/repeated-name-validator.directive';
 
 @Component({
   selector: 'app-launch-detail',
@@ -14,20 +17,30 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class LaunchDetailComponent implements OnInit {
   launch$: Observable<LaunchSpaceX>;
   id: number;
-  form: FormGroup= new FormGroup({
-    mission_name:new FormControl(''),
-    launch_year: new FormControl(''),
-    rocket_name: new FormControl(''),
-    site_name: new FormControl(''),
-    details: new FormControl(''),
+  form: FormGroup;
+  isEditing: boolean;
 
-  });
-
-  constructor(private route: ActivatedRoute, private launchesService: LaunchesService, private location: Location) {
+  constructor(private route: ActivatedRoute,
+    private launchesService: LaunchesService,
+    private location: Location,
+    private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
     this.getLaunch();
+
+    this.form = this.formBuilder.group({
+      mission_name: ['', [Validators.required,
+      ValidCharacterValidator(),
+      NoSpecialCharactersValidator()],
+      [
+        NoDataRepeatedValidator(this.launch$),
+      ]],
+      launch_year: [''],
+      rocket_name: [''],
+      site_name: [''],
+      details: [''],
+    });
   }
 
   getLaunch(): void {
@@ -36,7 +49,8 @@ export class LaunchDetailComponent implements OnInit {
     this.launch$ = this.launchesService.getLaunch(id);
   }
 
-  saveLaunch(){
+  saveLaunch() {
+    this.isEditing = false;
 
   }
 }
