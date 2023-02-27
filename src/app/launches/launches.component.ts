@@ -39,9 +39,13 @@ export class LaunchesComponent implements OnInit {
   }
 
   addFavorite(launch: LaunchSpaceX) {
-    console.log("This is the favorite", launch.flight_number);
     this.launchesService.addFavorite(launch.flight_number);
     this.getLaunches();
     this.isFavoriteLaunch= this.isFavorite(launch);
+  }
+
+  trackByFlightNumber(index: number, launches: any){
+    return launches.flight_number;
+
   }
 }

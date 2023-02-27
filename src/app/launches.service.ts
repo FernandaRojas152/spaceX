@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Observable, throwError, of } from 'rxjs';
-import { catchError, retry, map } from 'rxjs/operators';
+import { catchError, retry, map, tap } from 'rxjs/operators';
 import { InfoSpaceX } from './info-space-x';
 import { LaunchSpaceX } from './launch-space-x';
 
@@ -13,18 +13,21 @@ export class LaunchesService implements OnInit {
   private infoURL = "https://api.spacexdata.com/v3/info";
   private launchesURL = "https://api.spacexdata.com/v3/launches/";
   private favorite: number;
+  public launches: LaunchSpaceX[] = [];
 
-  constructor(private http: HttpClient) { };
+  constructor(private http: HttpClient) {
+
+  };
 
   ngOnInit(): void {
   }
 
-  addFavorite(id: number){
-    this.favorite= id;
+  addFavorite(id: number) {
+    this.favorite = id;
   }
 
-  isFavorite(id: number){
-    return this.favorite=== id;
+  isFavorite(id: number) {
+    return this.favorite === id;
   }
 
   getInfo(): Observable<InfoSpaceX> {
@@ -34,19 +37,28 @@ export class LaunchesService implements OnInit {
     );
   }
 
-  getLaunches() {
+  getLaunches(): Observable<LaunchSpaceX[]> {
     return this.http.get<LaunchSpaceX[]>(this.launchesURL).pipe(
       retry(3),
       catchError(this.handleError<any>("GetLaunches")),
+      tap(launches => this.launches = launches),
     );
   }
 
-
-  getLaunch(id: number){
+  getLaunch(id: number): Observable<LaunchSpaceX> {
     return this.http.get<LaunchSpaceX>(`https://api.spacexdata.com/v3/launches/${id}`).pipe(
       retry(3),
       catchError(this.handleError<any>("getLaunch")),
     );
+  }
+
+  updateLaunch(updatedLaunch: LaunchSpaceX): Observable<LaunchSpaceX> {
+    const index = this.launches.findIndex(launch => launch.flight_number === updatedLaunch.flight_number);
+    if (index === -1) {
+      return of(null);
+    }
+    this.launches[index] = updatedLaunch;
+    return of(updatedLaunch);
   }
 
   private handleError<T>(operation = "operation", result?: T) {
@@ -56,7 +68,6 @@ export class LaunchesService implements OnInit {
       } else {
         console.log(`Error status ${error.status}, and: `, error.error);
       }
-
       return of(result as T);
     }
   }

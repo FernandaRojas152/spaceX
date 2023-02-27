@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { LaunchesService } from '../launches.service';
-import { Observable, pipe, map, tap } from 'rxjs';
+import { Observable, pipe, map, tap, of, switchMap } from 'rxjs';
 import { LaunchSpaceX } from '../launch-space-x';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NoSpecialCharactersValidator } from '../customValidators/special-characters-validator.directive';
@@ -16,6 +16,7 @@ import { NoDataRepeatedValidator } from '../customValidators/repeated-name-valid
 })
 export class LaunchDetailComponent implements OnInit {
   launch$: Observable<LaunchSpaceX>;
+
   id: number;
   form: FormGroup;
   isEditing: boolean;
@@ -30,16 +31,16 @@ export class LaunchDetailComponent implements OnInit {
     this.getLaunch();
 
     this.form = this.formBuilder.group({
-      mission_name: ['', [Validators.required,
-      ValidCharacterValidator(),
-      NoSpecialCharactersValidator()],
-      [
-        NoDataRepeatedValidator(this.launch$),
-      ]],
-      launch_year: [''],
-      rocket_name: [''],
-      site_name: [''],
-      details: [''],
+      mission_name: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator()],
+        [NoDataRepeatedValidator(this.launch$),]],
+      launch_year: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator()],
+        [NoDataRepeatedValidator(this.launch$),]],
+      rocket_name: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator()],
+        [NoDataRepeatedValidator(this.launch$),]],
+      site_name: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator()],
+        [NoDataRepeatedValidator(this.launch$),]],
+      details: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator()],
+        [NoDataRepeatedValidator(this.launch$),]],
     });
   }
 
@@ -50,7 +51,21 @@ export class LaunchDetailComponent implements OnInit {
   }
 
   saveLaunch() {
+    this.launch$ = this.launchesService.getLaunches().pipe(
+      switchMap((launches) => {
+        const index = launches.findIndex(launch => launch.flight_number === this.id);
+        if (index !== -1) {
+          const updatedLaunch = { ...launches[index], ...this.form.value };
+          return this.launchesService.updateLaunch(updatedLaunch).pipe(
+            map((updated) => {
+              console.log("Launch updated:", updated);
+              return updated;
+            })
+          );
+        }
+        return this.launch$;
+      })
+    );
     this.isEditing = false;
-
   }
 }

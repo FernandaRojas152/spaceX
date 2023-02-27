@@ -85,3 +85,28 @@ hr {
 .btn:active {
     transform: scale(0.9);
 }
+
+//svg
+
+.custom-shape-divider-bottom-1677518807 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+    z-index: -1;
+}
+
+.custom-shape-divider-bottom-1677518807 svg {
+    position: relative;
+    display: block;
+    width: calc(115% + 1.3px);
+    height: 300px;
+    z-index: -1;
+}
+
+.custom-shape-divider-bottom-1677518807 .shape-fill {
+    fill: #FFFFFF;
+}

@@ -70,7 +70,9 @@
 
 //FAVORITE STAR STYLES
 input[type="radio"] {
-  display: none;
+  /* display: none; */
+  width: 15px;
+  height: 15px;
 }
 
 label svg {
