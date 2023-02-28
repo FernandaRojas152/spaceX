@@ -3,6 +3,7 @@ $font-color: #FFFDFF;
 $background-color: #171818;
 $background-color-secondary: #1F1922;
 $accent-color: #a3e583;
+$star: #FFC107;
 
 @font-face {
     font-family: 'Universo Black';
@@ -70,25 +71,4 @@ h4 {
     font-family: $secondary-font;
     font-size: 22px;
     text-transform: uppercase;
-}
-
-input {
-    width: 250px;
-    background-color: #f5f5f5;
-    font-family: $secondary-font;
-    color: #242424;
-    padding: .15rem .5rem;
-    min-height: 40px;
-    outline: none;
-    border: none;
-    line-height: 1.15;
-    box-shadow: 0px 10px 20px -18px;
-    border-radius: 15px;
-
-    &:focus {
-        border: none;
-        outline: none;
-        border-bottom: 1px solid $accent-color;
-    }
-
 }

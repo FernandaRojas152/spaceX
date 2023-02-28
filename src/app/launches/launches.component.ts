@@ -12,7 +12,7 @@ export class LaunchesComponent implements OnInit {
   launches$: Observable<LaunchSpaceX[]>;
   isFavoriteLaunch: boolean;
 
-  constructor(private launchesService: LaunchesService) {}
+  constructor(private launchesService: LaunchesService) { }
 
   ngOnInit(): void {
     this.getLaunches();
@@ -27,10 +27,8 @@ export class LaunchesComponent implements OnInit {
           const updatedLaunches = [favoriteLaunch, ...launches.filter((launch) => launch !== favoriteLaunch)];
           return of(updatedLaunches);
         }
-
         return of(launches);
-      }),
-      tap((launches) => console.log("Favorite: ", launches))
+      })
     );
   }
 
@@ -41,10 +39,10 @@ export class LaunchesComponent implements OnInit {
   addFavorite(launch: LaunchSpaceX) {
     this.launchesService.addFavorite(launch.flight_number);
     this.getLaunches();
-    this.isFavoriteLaunch= this.isFavorite(launch);
+    this.isFavoriteLaunch = this.isFavorite(launch);
   }
 
-  trackByFlightNumber(index: number, launches: any){
+  trackByFlightNumber(index: number, launches: any) {
     return launches.flight_number;
 
   }

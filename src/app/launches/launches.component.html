@@ -6,17 +6,17 @@
                     onerror="this.onerror= null; this.src='../../assets/img/default-img.png'" alt="mission image"
                     class="launch-img" />
             </a>
+            
             <div class="launches-list__title">
                 <h4>{{launch.mission_name}}</h4>
-                <input type="radio" [class.is-favorite]="isFavoriteLaunch" name="favorite" (change)="addFavorite(launch)">
-                <!--                 <input type="radio" id="star" (change)="addFavorite(l)"> -->
-                <label for="star" class="star">
-                    <svg viewBox="0 0 24 24">
-                        <path
-                            d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z">
-                        </path>
-                    </svg>
-                </label>
+                <div class="rating">
+                    
+                    <label class="fas fa-star">
+                        <input type="radio" name="star" (change)="addFavorite(launch)">
+
+                    </label>
+    
+                </div>
             </div>
             <div class="launches-list-description">
                 <p class="launches-list-description__launch-year">{{launch.launch_year}}</p>

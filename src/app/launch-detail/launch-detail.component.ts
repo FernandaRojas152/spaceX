@@ -58,7 +58,6 @@ export class LaunchDetailComponent implements OnInit {
           const updatedLaunch = { ...launches[index], ...this.form.value };
           return this.launchesService.updateLaunch(updatedLaunch).pipe(
             map((updated) => {
-              console.log("Launch updated:", updated);
               return updated;
             })
           );

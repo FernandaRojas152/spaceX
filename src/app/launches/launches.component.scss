@@ -41,7 +41,7 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 20px;
-  border:1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   cursor: pointer;
 
@@ -64,40 +64,18 @@
   }
 }
 
-.is-favorite{
-  fill: #FFC107; 
-}
-
 //FAVORITE STAR STYLES
-input[type="radio"] {
-  /* display: none; */
-  width: 15px;
-  height: 15px;
+
+.rating input {
+  display: none;
+  position: absolute;
 }
 
-label svg {
-  width: 44px;
-  height: 44px;
-  fill: none;
-  stroke: #000;
-  stroke-width: 2px;
+label {
+  cursor: pointer;
+  font-size: 32px;
 }
 
-input[type="radio"]:checked+label svg {
-  fill: #FFC107;
-  animation: pop_42 0.5s ease-out;
-}
-
-@keyframes pop_42 {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.5);
-  }
-
-  100% {
-    transform: scale(1);
-  }
+input:checked + label{
+  color: $star;
 }
