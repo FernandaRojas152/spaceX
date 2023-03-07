@@ -41,8 +41,12 @@ export class LaunchesService implements OnInit {
     return this.http.get<LaunchSpaceX[]>(this.launchesURL).pipe(
       retry(3),
       catchError(this.handleError<any>("GetLaunches")),
-      tap(launches => this.launches = launches),
+      tap(launches => {
+        this.launches = launches;
+        console.log("Launches saved in an array: ", this.launches);
+      }),
     );
+
   }
 
   getLaunch(id: number): Observable<LaunchSpaceX> {
@@ -52,13 +56,20 @@ export class LaunchesService implements OnInit {
     );
   }
 
-  updateLaunch(updatedLaunch: LaunchSpaceX): Observable<LaunchSpaceX> {
+  /* updateLaunch(updatedLaunch: LaunchSpaceX): Observable<LaunchSpaceX> {
     const index = this.launches.findIndex(launch => launch.flight_number === updatedLaunch.flight_number);
     if (index === -1) {
       return of(null);
     }
     this.launches[index] = updatedLaunch;
     return of(updatedLaunch);
+  } */
+
+  updateLaunch(updatedLaunch: Partial<LaunchSpaceX>) {
+    const index = this.launches.findIndex(launch => launch.flight_number === updatedLaunch.flight_number);
+    this.launches[index] = { ...this.launches[index], ...updatedLaunch };
+    console.log('Updated launch:', this.launches[index]);
+    return index;
   }
 
   private handleError<T>(operation = "operation", result?: T) {

@@ -8,6 +8,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { NoSpecialCharactersValidator } from '../customValidators/special-characters-validator.directive';
 import { ValidCharacterValidator } from '../customValidators/character-validator.directive';
 import { NoDataRepeatedValidator } from '../customValidators/repeated-name-validator.directive';
+import { InfoSpaceX } from '../info-space-x';
 
 @Component({
   selector: 'app-launch-detail',
@@ -16,7 +17,6 @@ import { NoDataRepeatedValidator } from '../customValidators/repeated-name-valid
 })
 export class LaunchDetailComponent implements OnInit {
   launch$: Observable<LaunchSpaceX>;
-
   id: number;
   form: FormGroup;
   isEditing: boolean;
@@ -29,7 +29,8 @@ export class LaunchDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLaunch();
-
+    this.saveLaunch();
+    
     this.form = this.formBuilder.group({
       mission_name: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator()],
         [NoDataRepeatedValidator(this.launch$),]],
@@ -51,7 +52,11 @@ export class LaunchDetailComponent implements OnInit {
   }
 
   saveLaunch() {
-    this.launch$ = this.launchesService.getLaunches().pipe(
+    const updated = { flight_number: 1, mission_name: 'Launch test',
+    launch_year: '2006', rocket:{rocket_name: 'test'}, details: 'It crashed',
+    launch_site:{site_name:'Canada'} };
+    this.launchesService.updateLaunch(updated);
+    /* this.launch$ = this.launchesService.getLaunches().pipe(
       switchMap((launches) => {
         const index = launches.findIndex(launch => launch.flight_number === this.id);
         if (index !== -1) {
@@ -65,6 +70,6 @@ export class LaunchDetailComponent implements OnInit {
         return this.launch$;
       })
     );
-    this.isEditing = false;
+    this.isEditing = false; */
   }
 }

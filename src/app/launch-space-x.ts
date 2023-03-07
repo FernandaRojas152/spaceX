@@ -25,12 +25,9 @@ export interface LaunchSpaceX {
 }
 
 export interface Rocket {
-  rocket_id: string,
+  rocket_id?: string,
   rocket_name: string,
-  rocket_type: string,
-  first_stage: FirstStage,
-  second_stage: SecondStage,
-  fairings: Fairings,
+  rocket_type?: string,
 }
 
 export interface FirstStage {
@@ -99,9 +96,7 @@ export interface Telemetry {
 }
 
 export interface LaunchSite {
-  site_id: string,
   site_name: string,
-  site_name_long: string,
 }
 
 export interface LaunchFailureDetails {
