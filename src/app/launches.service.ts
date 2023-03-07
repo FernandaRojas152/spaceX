@@ -14,6 +14,7 @@ export class LaunchesService implements OnInit {
   private launchesURL = "https://api.spacexdata.com/v3/launches/";
   private favorite: number;
   public launches: LaunchSpaceX[] = [];
+  public launch: LaunchSpaceX;
 
   constructor(private http: HttpClient) {
 
@@ -31,7 +32,7 @@ export class LaunchesService implements OnInit {
   }
 
   getInfo(): Observable<InfoSpaceX> {
-    return this.http.get<InfoSpaceX>(this.infoURL).pipe(
+    return this.http.get<InfoSpaceX>(this.infoURL).pipe( 
       retry(3),
       catchError(this.handleError<InfoSpaceX>("GetInfo")),
     );
@@ -46,27 +47,18 @@ export class LaunchesService implements OnInit {
         console.log("Launches saved in an array: ", this.launches);
       }),
     );
-
   }
 
   getLaunch(id: number): Observable<LaunchSpaceX> {
     return this.http.get<LaunchSpaceX>(`https://api.spacexdata.com/v3/launches/${id}`).pipe(
+      tap(launch=> {this.launch= launch; console.log("Specific launch:", this.launch)}),
       retry(3),
       catchError(this.handleError<any>("getLaunch")),
     );
   }
 
-  /* updateLaunch(updatedLaunch: LaunchSpaceX): Observable<LaunchSpaceX> {
-    const index = this.launches.findIndex(launch => launch.flight_number === updatedLaunch.flight_number);
-    if (index === -1) {
-      return of(null);
-    }
-    this.launches[index] = updatedLaunch;
-    return of(updatedLaunch);
-  } */
-
-  updateLaunch(updatedLaunch: Partial<LaunchSpaceX>) {
-    const index = this.launches.findIndex(launch => launch.flight_number === updatedLaunch.flight_number);
+  updateLaunch(id: number, updatedLaunch: Partial<LaunchSpaceX>) {
+    const index = this.launches.findIndex(launch => launch.flight_number === id);
     this.launches[index] = { ...this.launches[index], ...updatedLaunch };
     console.log('Updated launch:', this.launches[index]);
     return index;

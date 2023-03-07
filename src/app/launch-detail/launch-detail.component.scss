@@ -117,7 +117,7 @@ input {
     font-family: $secondary-font;
     color: #242424;
     padding: .15rem .5rem;
-    min-height: 40px;
+    min-height: 60px;
     outline: none;
     border: none;
     line-height: 1.15;
@@ -129,5 +129,4 @@ input {
         outline: none;
         border-bottom: 1px solid $accent-color;
     }
-
 }

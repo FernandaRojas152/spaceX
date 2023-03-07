@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LaunchesService } from '../launches.service';
-import { map, Observable, of, switchMap, tap } from 'rxjs';
+import { Observable, of, switchMap} from 'rxjs';
 import { LaunchSpaceX } from '../launch-space-x';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-launches',
@@ -12,7 +13,7 @@ export class LaunchesComponent implements OnInit {
   launches$: Observable<LaunchSpaceX[]>;
   isFavoriteLaunch: boolean;
 
-  constructor(private launchesService: LaunchesService) { }
+  constructor(private launchesService: LaunchesService, private router: Router) { }
 
   ngOnInit(): void {
     this.getLaunches();
@@ -30,6 +31,11 @@ export class LaunchesComponent implements OnInit {
         return of(launches);
       })
     );
+  }
+
+  goToLaunch(launch: LaunchSpaceX){
+    this.launchesService.launch = launch;
+    this.router.navigate(['detail', launch.flight_number]);
   }
 
   isFavorite(launch: LaunchSpaceX) {

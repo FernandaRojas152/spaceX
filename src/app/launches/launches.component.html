@@ -1,7 +1,7 @@
 <section class="container">
     <ng-container *ngFor="let launch of launches$ | async; trackBy: trackByFlightNumber">
         <article class="launches-list">
-            <a routerLink="/detail/{{launch.flight_number}}">
+            <a (click)="goToLaunch(launch)">
                 <img src={{launch.links.mission_patch_small}}
                     onerror="this.onerror= null; this.src='../../assets/img/default-img.png'" alt="mission image"
                     class="launch-img" />
