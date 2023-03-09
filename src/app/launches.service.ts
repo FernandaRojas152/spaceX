@@ -38,17 +38,6 @@ export class LaunchesService implements OnInit {
     );
   }
 
-  /* getLaunches() {
-    this.http.get<LaunchSpaceX[]>(this.launchesURL).pipe(
-      retry(3),
-      catchError(this.handleError<any>("GetLaunches")),
-      tap(launches => {
-        this.launches = launches;
-        console.log("valores: ", this.getLaunchesArray());
-      }),
-    ).subscribe();
-  } */
-
   getLaunches(): Observable<LaunchSpaceX[]> {
     return this.http.get<LaunchSpaceX[]>(this.launchesURL).pipe(tap(launches=> this.launches= launches));
   }
@@ -56,16 +45,6 @@ export class LaunchesService implements OnInit {
   getLaunch(id: number): Observable<LaunchSpaceX> {
     return this.http.get<LaunchSpaceX>(`https://api.spacexdata.com/v3/launches/${id}`).pipe(tap(launch=> this.launch= launch));
   }
-
- /*  getLaunch(id: number): Observable<LaunchSpaceX> {
-    return this.http.get<LaunchSpaceX>(`https://api.spacexdata.com/v3/launches/${id}`).pipe(
-      tap(launch => {
-        this.launch = launch; console.log("Specific launch:", this.launch);
-      }),
-      retry(3),
-      catchError(this.handleError<any>("getLaunch")),
-    );
-  } */
 
   updateLaunch(id: number, updatedLaunch: LaunchSpaceX) {
     const index = this.launches.findIndex(launch => launch.flight_number === id);

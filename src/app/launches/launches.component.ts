@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LaunchesService } from '../launches.service';
-import { map, Observable, of, switchMap, tap } from 'rxjs';
+import { map, Observable} from 'rxjs';
 import { LaunchSpaceX } from '../launch-space-x';
 import { Router } from '@angular/router';
 
@@ -20,30 +20,9 @@ export class LaunchesComponent implements OnInit {
     this.getLaunchesArray();
   }
 
-  getLaunches(): void {
-    /* this.launches$ = this.launchesService.getLaunches().pipe(
-      switchMap((launches) => {
-        const favoriteLaunch = launches.find((launch) => this.launchesService.isFavorite(launch.flight_number));
-
-        if (favoriteLaunch) {
-          const updatedLaunches = [favoriteLaunch, ...launches.filter((launch) => launch !== favoriteLaunch)];
-          return of(updatedLaunches);
-        }
-        return of(launches);
-      })
-    ); */
-  }
-
   getLaunchesArray(): void {
-    this.launchesService.getLaunches().pipe(map(launches => {
-      const favoriteLaunch = launches.find(launch => this.launchesService.isFavorite(launch.flight_number));
-      if (favoriteLaunch) {
-        const updatedLaunches = [favoriteLaunch, ...launches.filter(launch => launch !== favoriteLaunch)];
-        console.log(updatedLaunches);
-        return updatedLaunches;
-      }
-      return launches;
-    })).subscribe(launches => this.launchesArray = launches);
+    this.launchesService.getLaunches().pipe(map(launches => this.orderByFavorite(launches))
+    ).subscribe(launches => this.launchesArray = launches);
   }
 
   goToLaunch(launch: LaunchSpaceX) {
@@ -59,6 +38,14 @@ export class LaunchesComponent implements OnInit {
     this.launchesService.addFavorite(launch.flight_number);
     this.getLaunchesArray();
     this.isFavoriteLaunch = this.isFavorite(launch);
+  }
+
+  orderByFavorite(launches: LaunchSpaceX[]) {
+    const favoriteLaunch = launches.find(launch => this.launchesService.isFavorite(launch.flight_number));
+    if (favoriteLaunch) {
+      return [favoriteLaunch, ...launches.filter(launch => launch !== favoriteLaunch)];
+    }
+    return launches;
   }
 
   trackByFlightNumber(index: number, launches: any) {
