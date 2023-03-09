@@ -32,19 +32,19 @@ export class LaunchDetailComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       mission_name: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator()],
-        [NoDataRepeatedValidator(this.launch$),]],
+      ],
       launch_year: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator()],
-        [NoDataRepeatedValidator(this.launch$),]],
+      ],
       rocket: this.formBuilder.group({
         rocket_name: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator()],
-          [NoDataRepeatedValidator(this.launch$),]]
+        ]
       }),
       launch_site: this.formBuilder.group({
         site_name: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator()],
-          [NoDataRepeatedValidator(this.launch$),]]
+        ]
       }),
       details: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator()],
-        [NoDataRepeatedValidator(this.launch$),]],
+      ],
     });
   }
 
@@ -53,17 +53,17 @@ export class LaunchDetailComponent implements OnInit {
     const id = this.launchesService.launch.flight_number;
     this.id = id;
     this.launchesService.getLaunch(id).pipe(
-      tap(launch=> console.log(this.launch= launch))
-    ).subscribe(launch=> this.launch = launch);
+      tap(launch => console.log("First instance of the launch: ",this.launch = launch))
+    ).subscribe(launch => this.launch = launch);
   }
 
   saveLaunch() {
-    const updatedLaunch: Partial<LaunchSpaceX> = {...this.form.value, flight_number: this.id};
+    const updatedLaunch: LaunchSpaceX = { ...this.form.value, flight_number: this.id };
     console.log(updatedLaunch);
-    const savedLaunch: LaunchSpaceX={...this.launchesService.launch, ...updatedLaunch};
+    const savedLaunch: LaunchSpaceX = { ...this.launchesService.launch, ...updatedLaunch };
 
     this.launchesService.updateLaunch(this.id, updatedLaunch);
-    this.launch$= of(savedLaunch);
+    this.launch = savedLaunch;
     this.isEditing = false;
   }
 }

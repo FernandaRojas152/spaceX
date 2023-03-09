@@ -67,11 +67,10 @@ export class LaunchesService implements OnInit {
     );
   } */
 
-  updateLaunch(id: number, updatedLaunch: Partial<LaunchSpaceX>) {
+  updateLaunch(id: number, updatedLaunch: LaunchSpaceX) {
     const index = this.launches.findIndex(launch => launch.flight_number === id);
-    this.launches[index] = { ...this.launches[index], ...updatedLaunch };
+    this.launches[index]= updatedLaunch;
     console.log('Updated launch:', this.launches[index]);
-    return index;
   }
 
   private handleError<T>(operation = "operation", result?: T) {

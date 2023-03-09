@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LaunchesService } from '../launches.service';
-import { Observable, of, switchMap, tap } from 'rxjs';
+import { map, Observable, of, switchMap, tap } from 'rxjs';
 import { LaunchSpaceX } from '../launch-space-x';
 import { Router } from '@angular/router';
 
@@ -35,7 +35,15 @@ export class LaunchesComponent implements OnInit {
   }
 
   getLaunchesArray(): void {
-    this.launchesService.getLaunches().subscribe(launches => this.launchesArray = launches);
+    this.launchesService.getLaunches().pipe(map(launches => {
+      const favoriteLaunch = launches.find(launch => this.launchesService.isFavorite(launch.flight_number));
+      if (favoriteLaunch) {
+        const updatedLaunches = [favoriteLaunch, ...launches.filter(launch => launch !== favoriteLaunch)];
+        console.log(updatedLaunches);
+        return updatedLaunches;
+      }
+      return launches;
+    })).subscribe(launches => this.launchesArray = launches);
   }
 
   goToLaunch(launch: LaunchSpaceX) {
@@ -49,12 +57,11 @@ export class LaunchesComponent implements OnInit {
 
   addFavorite(launch: LaunchSpaceX) {
     this.launchesService.addFavorite(launch.flight_number);
-    this.getLaunches();
+    this.getLaunchesArray();
     this.isFavoriteLaunch = this.isFavorite(launch);
   }
 
   trackByFlightNumber(index: number, launches: any) {
     return launches.flight_number;
-
   }
 }

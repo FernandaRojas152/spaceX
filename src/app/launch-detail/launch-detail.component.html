@@ -1,4 +1,4 @@
-<ng-container *ngIf="!isEditing">
+<ng-container *ngIf="!isEditing else formEditing">
     <div *ngIf="launch" class="container">
         <div class="custom-shape-divider-bottom-1677518807">
             <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
@@ -31,7 +31,7 @@
 </ng-container>
 
 
-<ng-container *ngIf="isEditing">
+<ng-template #formEditing>
     <div *ngIf="launch" class="container">
         <section class="detail-view">
             <img class="detail-view__image" src={{launch.links.mission_patch}} alt="">
@@ -64,4 +64,4 @@
             <button type="submit" class="btn" [disabled]="form.invalid">Save </button>
         </form>
     </div>
-</ng-container>
+</ng-template>
