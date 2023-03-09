@@ -1,5 +1,5 @@
 <section class="container">
-    <ng-container *ngFor="let launch of launches$ | async; trackBy: trackByFlightNumber">
+    <ng-container *ngFor="let launch of launchesArray; trackBy: trackByFlightNumber">
         <article class="launches-list">
             <a (click)="goToLaunch(launch)">
                 <img src={{launch.links.mission_patch_small}}

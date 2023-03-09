@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LaunchesService } from '../launches.service';
-import { Observable, of, switchMap} from 'rxjs';
+import { Observable, of, switchMap, tap } from 'rxjs';
 import { LaunchSpaceX } from '../launch-space-x';
 import { Router } from '@angular/router';
 
@@ -11,16 +11,17 @@ import { Router } from '@angular/router';
 })
 export class LaunchesComponent implements OnInit {
   launches$: Observable<LaunchSpaceX[]>;
+  launchesArray: LaunchSpaceX[];
   isFavoriteLaunch: boolean;
 
   constructor(private launchesService: LaunchesService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getLaunches();
+    this.getLaunchesArray();
   }
 
   getLaunches(): void {
-    this.launches$ = this.launchesService.getLaunches().pipe(
+    /* this.launches$ = this.launchesService.getLaunches().pipe(
       switchMap((launches) => {
         const favoriteLaunch = launches.find((launch) => this.launchesService.isFavorite(launch.flight_number));
 
@@ -30,10 +31,14 @@ export class LaunchesComponent implements OnInit {
         }
         return of(launches);
       })
-    );
+    ); */
   }
 
-  goToLaunch(launch: LaunchSpaceX){
+  getLaunchesArray(): void {
+    this.launchesService.getLaunches().subscribe(launches => this.launchesArray = launches);
+  }
+
+  goToLaunch(launch: LaunchSpaceX) {
     this.launchesService.launch = launch;
     this.router.navigate(['detail', launch.flight_number]);
   }

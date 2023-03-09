@@ -32,30 +32,40 @@ export class LaunchesService implements OnInit {
   }
 
   getInfo(): Observable<InfoSpaceX> {
-    return this.http.get<InfoSpaceX>(this.infoURL).pipe( 
+    return this.http.get<InfoSpaceX>(this.infoURL).pipe(
       retry(3),
       catchError(this.handleError<InfoSpaceX>("GetInfo")),
     );
   }
 
-  getLaunches(): Observable<LaunchSpaceX[]> {
-    return this.http.get<LaunchSpaceX[]>(this.launchesURL).pipe(
+  /* getLaunches() {
+    this.http.get<LaunchSpaceX[]>(this.launchesURL).pipe(
       retry(3),
       catchError(this.handleError<any>("GetLaunches")),
       tap(launches => {
         this.launches = launches;
-        console.log("Launches saved in an array: ", this.launches);
+        console.log("valores: ", this.getLaunchesArray());
       }),
-    );
+    ).subscribe();
+  } */
+
+  getLaunches(): Observable<LaunchSpaceX[]> {
+    return this.http.get<LaunchSpaceX[]>(this.launchesURL).pipe(tap(launches=> this.launches= launches));
   }
 
   getLaunch(id: number): Observable<LaunchSpaceX> {
+    return this.http.get<LaunchSpaceX>(`https://api.spacexdata.com/v3/launches/${id}`).pipe(tap(launch=> this.launch= launch));
+  }
+
+ /*  getLaunch(id: number): Observable<LaunchSpaceX> {
     return this.http.get<LaunchSpaceX>(`https://api.spacexdata.com/v3/launches/${id}`).pipe(
-      tap(launch=> {this.launch= launch; console.log("Specific launch:", this.launch)}),
+      tap(launch => {
+        this.launch = launch; console.log("Specific launch:", this.launch);
+      }),
       retry(3),
       catchError(this.handleError<any>("getLaunch")),
     );
-  }
+  } */
 
   updateLaunch(id: number, updatedLaunch: Partial<LaunchSpaceX>) {
     const index = this.launches.findIndex(launch => launch.flight_number === id);

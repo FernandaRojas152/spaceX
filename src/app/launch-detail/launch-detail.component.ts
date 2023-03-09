@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { LaunchesService } from '../launches.service';
-import { Observable, of, } from 'rxjs';
+import { Observable, of, tap, } from 'rxjs';
 import { LaunchSpaceX } from '../launch-space-x';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NoSpecialCharactersValidator } from '../customValidators/special-characters-validator.directive';
@@ -52,7 +52,9 @@ export class LaunchDetailComponent implements OnInit {
   getLaunch(): void {
     const id = this.launchesService.launch.flight_number;
     this.id = id;
-    this.launch$ = this.launchesService.getLaunch(id);
+    this.launchesService.getLaunch(id).pipe(
+      tap(launch=> console.log(this.launch= launch))
+    ).subscribe(launch=> this.launch = launch);
   }
 
   saveLaunch() {
