@@ -56,9 +56,12 @@ export class LaunchDetailComponent implements OnInit {
   }
 
   saveLaunch() {
-    const updatedLaunch: LaunchSpaceX = { ...this.form.value, flight_number: this.id };
-    const savedLaunch: LaunchSpaceX = { ...this.launchesService.launch, ...updatedLaunch };
-    this.launchesService.updateLaunch(this.id, updatedLaunch);
+    const savedLaunch: LaunchSpaceX = {
+      ...this.launchesService.launch,
+      ...this.form.value,
+      flight_number: this.id
+    };
+    this.launchesService.updateLaunch(this.id, savedLaunch);
     this.launch = savedLaunch;
     this.isEditing = false;
   }

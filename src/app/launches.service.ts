@@ -50,6 +50,7 @@ export class LaunchesService implements OnInit {
     const index = this.launches.findIndex(launch => launch.flight_number === id);
     this.launches[index]= updatedLaunch;
     console.log('Updated launch:', this.launches[index]);
+    return this.launches[index];
   }
 
   private handleError<T>(operation = "operation", result?: T) {
