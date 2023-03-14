@@ -10,7 +10,7 @@
             <div class="launches-list__title">
                 <h4>{{launch.mission_name}}</h4>
                 <div class="rating">                    
-                    <label class="fas fa-star">
+                    <label [class.is-selected]="isFavorite(launch)" class="fas fa-star">
                         <input type="radio" name="star" (change)="addFavorite(launch)">
                     </label>
                 </div>

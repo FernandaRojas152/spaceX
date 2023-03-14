@@ -75,6 +75,6 @@ label {
   font-size: 32px;
 }
 
-input:checked + label{
+.is-selected{
   color: $star;
 }

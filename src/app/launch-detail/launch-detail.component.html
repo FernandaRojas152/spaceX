@@ -40,7 +40,14 @@
             <label for="mission_name">
                 <input formControlName="mission_name" placeholder="mission name">
             </label>
-
+            <span *ngIf="!form.get('mission_name').valid && form.get('mission_name').touched">
+                <span *ngIf="form.get('mission_name').errors['CharacterInvalid']"> Input can't have any "l"
+                    character</span>
+                <span *ngIf="form.get('mission_name').errors['SpecialCharactersInvalid']"> Input can't have any special
+                    character!</span>
+                <span *ngIf="form.get('mission_name').errors['DataRepeated']"> Input can't have the same as before.
+                </span>
+            </span>
             <label for="launch_year">
                 <input formControlName="launch_year" placeholder="launch year">
             </label>

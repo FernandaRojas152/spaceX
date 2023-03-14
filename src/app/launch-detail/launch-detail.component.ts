@@ -31,8 +31,8 @@ export class LaunchDetailComponent implements OnInit {
     this.getLaunch();
 
     this.form = this.formBuilder.group({
-      mission_name: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator()],
-      ],
+      mission_name: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator(),
+        NoDataRepeatedValidator(this.launch.mission_name)]],
       launch_year: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator()],
       ],
       rocket: this.formBuilder.group({
@@ -48,11 +48,8 @@ export class LaunchDetailComponent implements OnInit {
     });
   }
 
-
   getLaunch(): void {
-    const id = this.launchesService.launch.flight_number;
-    this.id = id;
-    this.launchesService.getLaunch(id).subscribe(launch => this.launch = launch);
+    this.launch = this.launchesService.launch;
   }
 
   saveLaunch() {
