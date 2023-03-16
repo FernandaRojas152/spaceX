@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { LaunchesService } from '../launches.service';
-import { Observable, of, tap, } from 'rxjs';
+import { Observable } from 'rxjs';
 import { LaunchSpaceX } from '../launch-space-x';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NoSpecialCharactersValidator } from '../customValidators/special-characters-validator.directive';
@@ -29,6 +29,8 @@ export class LaunchDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLaunch();
+    console.log(this.launchesService.launches);
+    console.log(this.launchesService.launch);
 
     this.form = this.formBuilder.group({
       mission_name: ['', [Validators.required, ValidCharacterValidator(), NoSpecialCharactersValidator(),

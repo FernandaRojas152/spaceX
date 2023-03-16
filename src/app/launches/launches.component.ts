@@ -22,7 +22,7 @@ export class LaunchesComponent implements OnInit {
 
   getLaunchesArray(): void {
     this.launchesService.getLaunches().pipe(map(launches => this.orderByFavorite(launches))
-    ).subscribe(launches => this.launchesArray = launches);
+    ).subscribe( launches => this.launchesArray = launches);
   }
 
   goToLaunch(launch: LaunchSpaceX) {

@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LaunchesComponent } from './launches/launches.component';
 import { LaunchDetailComponent } from './launch-detail/launch-detail.component';
+import { FerDirective } from './directives/fer.directive';
+import { IndexLaunchComponent } from './index-launch/index-launch.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { LaunchDetailComponent } from './launch-detail/launch-detail.component';
     HeaderComponent,
     LaunchesComponent,
     LaunchDetailComponent,
+    FerDirective,
+    IndexLaunchComponent,
   ],
   imports: [
     BrowserModule,

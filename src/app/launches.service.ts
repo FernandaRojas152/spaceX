@@ -39,7 +39,7 @@ export class LaunchesService implements OnInit {
   }
 
   getLaunches(): Observable<LaunchSpaceX[]> {
-    return this.http.get<LaunchSpaceX[]>(this.launchesURL).pipe(tap(launches=> this.launches= launches));
+    return this.http.get<LaunchSpaceX[]>(this.launchesURL);
   }
 
   getLaunch(id: number): Observable<LaunchSpaceX> {
