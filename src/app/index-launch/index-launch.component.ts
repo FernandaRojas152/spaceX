@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-index-launch',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./index-launch.component.scss']
 })
 export class IndexLaunchComponent {
-
+  @Input() index: number;
 }

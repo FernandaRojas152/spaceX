@@ -1,16 +1,17 @@
 <section class="container">
     <ng-container *ngFor="let launch of launchesArray; trackBy: trackByFlightNumber; let i= index">
-        <h1>{{i}}</h1>
+        <p appFer [index]="i"></p>
+        <!-- <app-index-launch [index]="i+1"></app-index-launch> -->
         <article class="launches-list">
             <a (click)="goToLaunch(launch)">
                 <img src={{launch.links.mission_patch_small}}
                     onerror="this.onerror= null; this.src='../../assets/img/default-img.png'" alt="mission image"
                     class="launch-img" />
             </a>
-            
+
             <div class="launches-list__title">
                 <h4>{{launch.mission_name}}</h4>
-                <div class="rating">                    
+                <div class="rating">
                     <label [class.is-selected]="isFavorite(launch)" class="fas fa-star">
                         <input type="radio" name="star" (change)="addFavorite(launch)">
                     </label>

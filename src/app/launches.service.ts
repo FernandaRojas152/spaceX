@@ -1,8 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { Observable, throwError, of } from 'rxjs';
-import { catchError, retry, map, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, retry, tap } from 'rxjs/operators';
 import { InfoSpaceX } from './info-space-x';
 import { LaunchSpaceX } from './launch-space-x';
 

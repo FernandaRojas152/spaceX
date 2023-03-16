@@ -10,6 +10,7 @@ import { LaunchesComponent } from './launches/launches.component';
 import { LaunchDetailComponent } from './launch-detail/launch-detail.component';
 import { FerDirective } from './directives/fer.directive';
 import { IndexLaunchComponent } from './index-launch/index-launch.component';
+import { OrdinalPipe } from './pipes/ordinal.pipe';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { IndexLaunchComponent } from './index-launch/index-launch.component';
     LaunchDetailComponent,
     FerDirective,
     IndexLaunchComponent,
+    OrdinalPipe,
   ],
   imports: [
     BrowserModule,
