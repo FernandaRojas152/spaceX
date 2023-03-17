@@ -1,6 +1,7 @@
 <section class="container">
     <ng-container *ngFor="let launch of launchesArray; trackBy: trackByFlightNumber; let i= index">
-        <p appFer [index]="i"></p>
+        <p appFer [index]="i" ></p>
+        <p>{{i | ordinal}}</p>
         <!-- <app-index-launch [index]="i+1"></app-index-launch> -->
         <article class="launches-list">
             <a (click)="goToLaunch(launch)">
