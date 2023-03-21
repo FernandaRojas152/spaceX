@@ -9,7 +9,6 @@ export class OrdinalPipe implements PipeTransform {
   transform(value: number): string {
     const lastDigit= value+1%100;
     const ordinal= this.suffixes[(lastDigit-20)%10] || this.suffixes[lastDigit] || this.suffixes[0];
-    return `${ordinal}`;
+    return `${value+1}${ordinal}`;
   }
-
 }
