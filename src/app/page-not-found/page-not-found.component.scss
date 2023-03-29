@@ -1,0 +1,43 @@
+@import"../../styles.scss";
+
+.not-found {
+    @include flex(center, center, column, nowrap);
+    padding: 4rem;
+    
+    &__image{
+        width: 950px;
+    }
+
+    &__btn {
+        @include flex();
+        margin-top: 20px;
+        background-image: linear-gradient(144deg, #8C129A, #70097C, #5E0D98, #380C84, #610F96);
+        border-radius: 25px;
+        box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+        box-sizing: border-box;
+        line-height: 1em;
+        min-width: 140px;
+        padding: 3px;
+        transition: all .3s;
+
+        &:active, :hover{
+            outline: 0;
+        }
+        &:active{
+            transform: scale(0.9);
+        }
+    }
+}
+
+button span {
+    background-color: $background-color;
+    padding: 16px 24px;
+    border-radius: 25px;
+    width: 100%;
+    height: 100%;
+    transition: 300ms;
+}
+
+button:hover span {
+    background: none;
+}

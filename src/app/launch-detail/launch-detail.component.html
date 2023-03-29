@@ -20,7 +20,7 @@
         <aside class="detail-content">
             <hr class="divider">
             <h1 class="detail-content__title">{{launch.mission_name}} </h1>
-            <button class="btn" (click)="isEditing= true">Edit</button>
+            <button class="btn" (click)="edit()">Edit</button>
             <h2> {{launch.launch_year}} </h2>
             <p> {{launch.rocket.rocket_name }} </p>
             <p> {{launch.launch_site.site_name}} </p>
@@ -29,7 +29,6 @@
 
     </div>
 </ng-container>
-
 
 <ng-template #formEditing>
     <div *ngIf="launch" class="container">
@@ -71,4 +70,5 @@
             <button type="submit" class="btn" [disabled]="form.invalid">Save </button>
         </form>
     </div>
+    <router-outlet></router-outlet>
 </ng-template>

@@ -11,6 +11,7 @@ import { LaunchDetailComponent } from './launch-detail/launch-detail.component';
 import { FerDirective } from './directives/fer.directive';
 import { IndexLaunchComponent } from './index-launch/index-launch.component';
 import { OrdinalPipe } from './pipes/ordinal.pipe';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { OrdinalPipe } from './pipes/ordinal.pipe';
     FerDirective,
     IndexLaunchComponent,
     OrdinalPipe,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, retry, tap } from 'rxjs/operators';
+import { catchError, retry } from 'rxjs/operators';
 import { InfoSpaceX } from './info-space-x';
 import { LaunchSpaceX } from './launch-space-x';
 
@@ -11,12 +11,11 @@ import { LaunchSpaceX } from './launch-space-x';
 export class LaunchesService implements OnInit {
   private infoURL = "https://api.spacexdata.com/v3/info";
   private launchesURL = "https://api.spacexdata.com/v3/launches/";
-  private favorite: number;
+  public favorite: number;
   public launches: LaunchSpaceX[] = [];
   public launch: LaunchSpaceX;
 
   constructor(private http: HttpClient) {
-
   };
 
   ngOnInit(): void {
@@ -38,17 +37,17 @@ export class LaunchesService implements OnInit {
   }
 
   getLaunches(): Observable<LaunchSpaceX[]> {
+    //colocar condicional
     return this.http.get<LaunchSpaceX[]>(this.launchesURL);
   }
 
   getLaunch(id: number): Observable<LaunchSpaceX> {
-    return this.http.get<LaunchSpaceX>(`https://api.spacexdata.com/v3/launches/${id}`).pipe(tap(launch=> this.launch= launch));
+    return this.http.get<LaunchSpaceX>(`https://api.spacexdata.com/v3/launches/${id}`);
   }
 
   updateLaunch(id: number, updatedLaunch: LaunchSpaceX) {
     const index = this.launches.findIndex(launch => launch.flight_number === id);
     this.launches[index]= updatedLaunch;
-    console.log('Updated launch:', this.launches[index]);
     return this.launches[index];
   }
 

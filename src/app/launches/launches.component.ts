@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LaunchesService } from '../launches.service';
 import { map, Observable} from 'rxjs';
 import { LaunchSpaceX } from '../launch-space-x';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-launches',
@@ -14,14 +14,14 @@ export class LaunchesComponent implements OnInit {
   launchesArray: LaunchSpaceX[];
   isFavoriteLaunch: boolean;
 
-  constructor(private launchesService: LaunchesService, private router: Router) { }
+  constructor(private launchesService: LaunchesService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getLaunchesArray();
   }
 
   getLaunchesArray(): void {
-    this.launchesService.getLaunches().pipe(map(launches => this.orderByFavorite(launches))
+    this.launchesService.getLaunches().pipe(map(this.orderByFavorite)
     ).subscribe( launches => this.launchesArray = launches);
   }
 
@@ -40,7 +40,7 @@ export class LaunchesComponent implements OnInit {
     this.isFavoriteLaunch = this.isFavorite(launch);
   }
 
-  orderByFavorite(launches: LaunchSpaceX[]) {
+  orderByFavorite=(launches: LaunchSpaceX[])=>{
     const favoriteLaunch = launches.find(launch => this.launchesService.isFavorite(launch.flight_number));
     if (favoriteLaunch) {
       return [favoriteLaunch, ...launches.filter(launch => launch !== favoriteLaunch)];
