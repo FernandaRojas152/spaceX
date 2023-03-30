@@ -15,7 +15,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class LaunchDetailComponent implements OnInit {
   launch: LaunchSpaceX;
-  launch$: Observable<LaunchSpaceX>;
   id: number;
   form: FormGroup;
   isEditing: boolean;

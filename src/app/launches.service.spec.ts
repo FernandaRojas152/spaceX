@@ -9,7 +9,6 @@ import { LaunchesService } from './launches.service';
 
 describe('LaunchesService', () => {
   let service: LaunchesService;
-  let httpMock: HttpTestingController;
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(() => {
@@ -18,14 +17,8 @@ describe('LaunchesService', () => {
       providers: [LaunchesService]
     });
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
-    /* service = TestBed.inject(LaunchesService);
-    httpMock = TestBed.inject(HttpTestingController); */
     service = new LaunchesService(httpClientSpy);
   });
-
-  /* afterEach(() => {
-    httpMock.verify();
-  }); */
 
   it('should be created', () => {
     expect(service).toBeTruthy();
@@ -120,7 +113,7 @@ describe('LaunchesService', () => {
   describe('updateLaunch', () => {
     it('should update the launch if the id exists', fakeAsync(() => {
       const id = 2;
-      const mockLaunch: LaunchSpaceX[] = [{
+      const mockLaunches: LaunchSpaceX[] = [{
         "flight_number": 2,
         "mission_name": "DemoSat",
         "launch_year": "2007",
@@ -154,13 +147,50 @@ describe('LaunchesService', () => {
         },
         "details": "Successful first stage burn and transition to second stage, maximum altitude 289 km, Premature engine shutdown at T+7 min 30 s, Failed to reach orbit, Failed to recover first stage",
       };
-      service.launches= mockLaunch;
+      service.launches= mockLaunches;
       service.updateLaunch(id, expectedLaunch);
       expect(service.launches[0].mission_name).toEqual(expectedLaunch.mission_name);
     }));
-  })
 
-  /*   describe('getLaunches', ()=>{
-  
-    }); */
+    it('shouldn\'t update the launch if the id doesn\'t exists', fakeAsync(() => {
+      const id = 999;
+      const mockLaunches: LaunchSpaceX[] = [{
+        "flight_number": 2,
+        "mission_name": "DemoSat",
+        "launch_year": "2007",
+        "rocket": {
+          "rocket_name": "Falcon 1",
+        },
+        "launch_site": {
+          "site_name": "Kwajalein Atoll",
+        },
+        "links": {
+          "mission_patch": "https://images2.imgbox.com/be/e7/iNqsqVYM_o.png",
+          "mission_patch_small": "https://images2.imgbox.com/4f/e3/I0lkuJ2e_o.png",
+          "youtube_id": "Lk4zQ2wP-Nc",
+        },
+        "details": "Successful first stage burn and transition to second stage, maximum altitude 289 km, Premature engine shutdown at T+7 min 30 s, Failed to reach orbit, Failed to recover first stage",
+      }];
+      const expectedLaunch: LaunchSpaceX = {
+        "flight_number": 2,
+        "mission_name": "Fer",
+        "launch_year": "2001",
+        "rocket": {
+          "rocket_name": "Falcon 1",
+        },
+        "launch_site": {
+          "site_name": "Kwajalein Atoll",
+        },
+        "links": {
+          "mission_patch": "https://images2.imgbox.com/be/e7/iNqsqVYM_o.png",
+          "mission_patch_small": "https://images2.imgbox.com/4f/e3/I0lkuJ2e_o.png",
+          "youtube_id": "Lk4zQ2wP-Nc",
+        },
+        "details": "Successful first stage burn and transition to second stage, maximum altitude 289 km, Premature engine shutdown at T+7 min 30 s, Failed to reach orbit, Failed to recover first stage",
+      };
+      service.launches= mockLaunches;
+      service.updateLaunch(id, expectedLaunch);
+      expect(service.launches[0].mission_name).toEqual("DemoSat");
+    }));
+  });
 });

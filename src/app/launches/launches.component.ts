@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LaunchesService } from '../launches.service';
-import { map, Observable} from 'rxjs';
+import { map} from 'rxjs';
 import { LaunchSpaceX } from '../launch-space-x';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-launches',
@@ -10,7 +10,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
   styleUrls: ['./launches.component.scss']
 })
 export class LaunchesComponent implements OnInit {
-  launches$: Observable<LaunchSpaceX[]>;
   launchesArray: LaunchSpaceX[];
   isFavoriteLaunch: boolean;
 

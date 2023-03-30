@@ -47,7 +47,9 @@ export class LaunchesService implements OnInit {
 
   updateLaunch(id: number, updatedLaunch: LaunchSpaceX) {
     const index = this.launches.findIndex(launch => launch.flight_number === id);
-    this.launches[index]= updatedLaunch;
+    if (index == -1) return null;
+    
+    this.launches[index] = updatedLaunch;
     return this.launches[index];
   }
 
