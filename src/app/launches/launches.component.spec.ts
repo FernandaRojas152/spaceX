@@ -28,7 +28,7 @@ describe('LaunchesComponent', () => {
     "details": "Successful first stage burn and transition to second stage, maximum altitude 289 km, Premature engine shutdown at T+7 min 30 s, Failed to reach orbit, Failed to recover first stage",
   };
 
-  const mockLaunches: LaunchSpaceX[]=[mockLaunch, {...mockLaunch, flight_number: 3, mission_name: 'Test'}];
+  const mockLaunches: LaunchSpaceX[] = [mockLaunch, { ...mockLaunch, flight_number: 3, mission_name: 'Test' }];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -48,32 +48,44 @@ describe('LaunchesComponent', () => {
   });
 
   describe('GetLaunchesArray()', () => {
-    it('should call getLaunches() method of LaunchesService when getLaunchesArray() is called', fakeAsync(() => {
+    it('should call getLaunches() method of LaunchesService when getLaunchesArray() is called', () => {
       const getLaunchesSpy = spyOn(service, 'getLaunches').and.callThrough();
       component.getLaunchesArray();
       expect(getLaunchesSpy).toHaveBeenCalled();
       expect(component.launchesArray).not.toBeNull();
-    }));
-    
+    });
   });
 
-  it('should go to the detail Launch if the id is correct or exists', () => {
-    const router = TestBed.inject(Router);
-    const navigateSpy = spyOn(router, 'navigate');
-    component.goToLaunch(mockLaunch);
-    expect(navigateSpy).toHaveBeenCalledWith(['detail', mockLaunch.flight_number]);
+  describe('GoToLaunch()', () => {
+    it('should go to the detail Launch if the id is correct or exists', () => {
+      const router = TestBed.inject(Router);
+      const navigateSpy = spyOn(router, 'navigate');
+      component.goToLaunch(mockLaunch);
+      expect(navigateSpy).toHaveBeenCalledWith(['detail', mockLaunch.flight_number]);
+    });
   });
 
-  it('should call the isFavorite() method of LaunchesService if the id is correct', () => {
-    const isFavoriteSpy = spyOn(service, 'isFavorite');
-    component.isFavorite(mockLaunch);
-    expect(isFavoriteSpy).toHaveBeenCalledWith(mockLaunch.flight_number);
+  describe('isFavorite()', () => {
+    it('should call the isFavorite() method of LaunchesService if the id is correct', () => {
+      const isFavoriteSpy = spyOn(service, 'isFavorite');
+      component.isFavorite(mockLaunch);
+      expect(isFavoriteSpy).toHaveBeenCalledWith(mockLaunch.flight_number);
+    });
   });
 
-  it('should add a favorite in the LaunchesService addFavorite() if the id is correct', () => {
-    const addFavoriteSpy  = spyOn(service, 'isFavorite');
-    component.addFavorite(mockLaunch);
-    expect(addFavoriteSpy).toHaveBeenCalledWith(mockLaunch.flight_number);
-    expect(service.favorite).toEqual(mockLaunch.flight_number);
+  describe('addFavorite()', () => {
+    it('should add a favorite in the LaunchesService addFavorite() if the id is correct', () => {
+      const addFavoriteSpy = spyOn(service, 'isFavorite');
+      component.addFavorite(mockLaunch);
+      expect(addFavoriteSpy).toHaveBeenCalledWith(mockLaunch.flight_number);
+      expect(service.favorite).toEqual(mockLaunch.flight_number);
+    });
+  });
+
+  describe('orderByFavorite()', ()=>{
+    it('should order the launches list if a favorite is selected', ()=>{
+      component.addFavorite(mockLaunch);
+    })
+
   });
 });

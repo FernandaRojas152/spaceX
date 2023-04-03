@@ -4,11 +4,11 @@ import { fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { InfoSpaceX } from './info-space-x';
 import { LaunchSpaceX } from './launch-space-x';
-
 import { LaunchesService } from './launches.service';
 
 describe('LaunchesService', () => {
   let service: LaunchesService;
+  let httpTestingController: HttpTestingController;
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(() => {
@@ -17,13 +17,17 @@ describe('LaunchesService', () => {
       providers: [LaunchesService]
     });
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
-    service = new LaunchesService(httpClientSpy);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    service = TestBed.inject(LaunchesService);
   });
+
+  afterEach(() => {
+    httpTestingController.verify();
+  })
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-
 
   describe('IsFavorite', () => {
     it(`should be true if the id is favorite`, () => {
@@ -54,21 +58,54 @@ describe('LaunchesService', () => {
   });
 
   describe('getInfo', () => {
-    it('should retrieve info from the API', fakeAsync(() => {
-      const mockInfo: InfoSpaceX = {
-        name: 'SpaceX',
-        founder: 'Elon Musk',
-        summary: 'SpaceX designs, manufactures and launches advanced rockets and spacecraft. The company was founded in 2002 to revolutionize space technology, with the ultimate goal of enabling people to live on other planets.'
-      };
-      httpClientSpy.get.and.returnValue(of(mockInfo));
+    const mockInfo: InfoSpaceX = {
+      name: 'SpaceX',
+      founder: 'Elon Musk',
+      summary: 'SpaceX designs, manufactures and launches advanced rockets and spacecraft. The company was founded in 2002 to revolutionize space technology, with the ultimate goal of enabling people to live on other planets.'
+    };
+
+    it('should retrieve info from the API', () => {
+      const infoURL = "https://api.spacexdata.com/v3/info";
       service.getInfo().subscribe(data => {
         expect(data).toEqual(mockInfo);
       });
-    }));
+      const req = httpTestingController.expectOne({ method: 'GET', url: infoURL });
+      req.flush(mockInfo);
+    });
   });
 
-  describe('getLaunch', () => {
-    it('should retrieve one launch from the API if the number exists', fakeAsync(() => {
+  describe('getLaunches', ()=>{
+    it('should retrieve all launches from the API', ()=>{
+      const launchesURL = "https://api.spacexdata.com/v3/launches/";
+      const mockLaunches: LaunchSpaceX[] = [{
+        "flight_number": 2,
+        "mission_name": "DemoSat",
+        "launch_year": "2007",
+        "rocket": {
+          "rocket_name": "Falcon 1",
+        },
+        "launch_site": {
+          "site_name": "Kwajalein Atoll",
+        },
+        "links": {
+          "mission_patch": "https://images2.imgbox.com/be/e7/iNqsqVYM_o.png",
+          "mission_patch_small": "https://images2.imgbox.com/4f/e3/I0lkuJ2e_o.png",
+          "youtube_id": "Lk4zQ2wP-Nc",
+        },
+        "details": "Successful first stage burn and transition to second stage, maximum altitude 289 km, Premature engine shutdown at T+7 min 30 s, Failed to reach orbit, Failed to recover first stage",
+      }];
+      service.getLaunches().subscribe(launches=>{
+        expect(launches).toEqual(mockLaunches);
+      });
+
+      const req = httpTestingController.expectOne({ method: 'GET', url: launchesURL });
+      req.flush(mockLaunches);
+    });
+
+  });
+
+  describe('getLaunch()', () => {
+    it('should retrieve one launch from the API if the number exists', () => {
       const id = 2;
       const mockLaunch: LaunchSpaceX = {
         "flight_number": 2,
@@ -87,14 +124,14 @@ describe('LaunchesService', () => {
         },
         "details": "Successful first stage burn and transition to second stage, maximum altitude 289 km, Premature engine shutdown at T+7 min 30 s, Failed to reach orbit, Failed to recover first stage",
       };
-
-      httpClientSpy.get.and.returnValue(of(mockLaunch));
       service.getLaunch(id).subscribe(launch => {
         expect(launch).toEqual(mockLaunch);
       });
-    }));
+      const req = httpTestingController.expectOne({ method: 'GET', url: `https://api.spacexdata.com/v3/launches/${id}` });
+      req.flush(mockLaunch);
+    });
 
-    it('shouldn\'t retrieve a launch if the id doesn\'t exists', fakeAsync(() => {
+    it('shouldn\'t retrieve a launch if the id doesn\'t exists', () => {
       const id = 999;
       const mockError = new HttpErrorResponse({
         error: 'Not Found',
@@ -107,7 +144,9 @@ describe('LaunchesService', () => {
           expect(error.status).toEqual(404);
         }
       });
-    }));
+      const req = httpTestingController.expectOne({ method: 'GET', url: `https://api.spacexdata.com/v3/launches/${id}` });
+      req.flush(mockError);
+    });
   });
 
   describe('updateLaunch', () => {
@@ -147,7 +186,7 @@ describe('LaunchesService', () => {
         },
         "details": "Successful first stage burn and transition to second stage, maximum altitude 289 km, Premature engine shutdown at T+7 min 30 s, Failed to reach orbit, Failed to recover first stage",
       };
-      service.launches= mockLaunches;
+      service.launches = mockLaunches;
       service.updateLaunch(id, expectedLaunch);
       expect(service.launches[0].mission_name).toEqual(expectedLaunch.mission_name);
     }));
@@ -188,7 +227,7 @@ describe('LaunchesService', () => {
         },
         "details": "Successful first stage burn and transition to second stage, maximum altitude 289 km, Premature engine shutdown at T+7 min 30 s, Failed to reach orbit, Failed to recover first stage",
       };
-      service.launches= mockLaunches;
+      service.launches = mockLaunches;
       service.updateLaunch(id, expectedLaunch);
       expect(service.launches[0].mission_name).toEqual("DemoSat");
     }));
